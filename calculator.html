@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container {
+    display:flex;
+    justify-content:center;
+}
+#table {
+    align-self: center;
+}
+#equal {
+    background-color: rgb(133, 133, 133);
+    border: 1px solid black;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+
+<h1>Calculator</h1>
+<div class="container">
+    <table id="calculator" style="border:1px solid black">
+        <tr>
+            <td colspan="4"><input type="text" id="result" placeholder="Result"></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="sin">sin</button></td>
+            <td><button style="width:100%;" id="cos">cos</button></td>
+            <td><button style="width:100%;" id="tan">tan</button></td>
+            <td><button style="width:100%;" id="C">C</button></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="x2">x²</button></td>
+            <td><button style="width:100%;" id="x3">x³</button></td>
+            <td><button style="width:100%;" id="sqrt">√</button></td>
+            <td><button style="width:100%;" id="3sqrt">³√</button></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="one">1</button></td>
+            <td><button style="width:100%;" id="two">2</button></td>
+            <td><button style="width:100%;" id="three">3</button></td>
+            <td><button style="width:100%;" id="plus">+</button></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="four">4</button></td>
+            <td><button style="width:100%;" id="five">5</button></td>
+            <td><button style="width:100%;" id="six">6</button></td>
+            <td><button style="width:100%;" id="minus">-</button></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="seven">7</button></td>
+            <td><button style="width:100%;" id="eight">8</button></td>
+            <td><button style="width:100%;" id="nine">9</button></td>
+            <td><button style="width:100%;" id="division">/</button></td>
+        </tr>
+        <tr>
+            <td><button style="width:100%;" id="dot">.</button></td>
+            <td><button style="width:100%;" id="zero">0</button></td>
+            <td><button style="width:100%;" id="multiply">*</button></td>
+            <td><button style="width:100%;" id="pct">%</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button style="width:100%;" id="equal">=</button></td>
+            <td><button style="width:100%;" id="higher">></button></td>
+            <td><button style="width:100%;" id="lower"><</button></td>
+        </tr>
+    </table>
+</div>
+<script>
+    function appendToScreen(input_id) {
+        if (input_id == "C") {
+            $("#result").val("");
+        }
+        else {
+            $("#result").val($("#result").val()+input_id);
+        }
+    }
+</script>
+<script>
+    var uus = [];
+    var x = 0;
+    var y = 0;
+    var h = 0;
+    function Calculate(arrayOfInputs, p, z) {
+        h = 0;
+        y = 0;
+        while(h < p) {
+            console.log(arrayOfInputs);
+            if(arrayOfInputs[h] == "+") {
+                if(h-1 == 0) {
+                    x = (parseFloat(arrayOfInputs[h-1])+(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])+(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+            }
+            if(arrayOfInputs[h] == "-") {
+                if(h-1 == 0) {
+                    x = (parseFloat(arrayOfInputs[h-1])-(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])-(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+            }
+            if(arrayOfInputs[h] == "/") {
+                if(h-1 == 0) {
+                    x = (parseFloat(arrayOfInputs[h-1])/(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])/(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;
+                }
+            }
+            if(arrayOfInputs[h] == "%") {
+                if(h-1 == 0) {
+                    x = (parseFloat(arrayOfInputs[h-1])%(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;     
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])%(parseFloat(arrayOfInputs[h+1])));
+                    arrayOfInputs[h+1] = x;                  
+                }
+            }
+            if(arrayOfInputs[h] == "√") {
+                if(h-1 == -1) {
+                    x = Math.sqrt(parseFloat(arrayOfInputs[h+1]));
+                    arrayOfInputs[h+1] = x;                    
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])*(Math.sqrt((parseFloat(arrayOfInputs[h+1])))));
+                    arrayOfInputs[h+1] = x;     
+                }
+            }
+            if(arrayOfInputs[h] == "³√") {
+                if(h-1 == -1) {
+                    x = Math.cbrt(parseFloat(arrayOfInputs[h+1]));
+                    arrayOfInputs[h+1] = x;
+                }
+                else {
+                    x = (parseFloat(arrayOfInputs[h-1])*(Math.cbrt((parseFloat(arrayOfInputs[h+1])))));
+                    arrayOfInputs[h+1] = x;
+                }
+            }
+            if(arrayOfInputs[h] == ">") {
+                x = (parseFloat(arrayOfInputs[h-1])>(parseFloat(arrayOfInputs[h+1])));
+            }
+            if(arrayOfInputs[h] == "<") {
+                x = (parseFloat(arrayOfInputs[h-1])<(parseFloat(arrayOfInputs[h+1])));
+            }
+            if(arrayOfInputs[h+1] == "x²") {
+                x = Math.pow(parseFloat(arrayOfInputs[h]), 2);
+                arrayOfInputs[h+1] = x;
+            }
+            if(arrayOfInputs[h+1] == "x³") {
+                x = Math.pow(parseFloat(arrayOfInputs[h]), 3);
+                arrayOfInputs[h+1] = x;
+            }
+            if(arrayOfInputs[h] == "*") {
+                x = (parseFloat(arrayOfInputs[h-1])*(parseFloat(arrayOfInputs[h+1])));
+                arrayOfInputs[h+1] = x;
+            }
+            if (arrayOfInputs[h] == "sin") {
+                x = Math.sin(parseFloat(arrayOfInputs[h+1]))
+                arrayOfInputs[h+1] = x;
+            }
+            if (arrayOfInputs[h] == "cos") {
+                x = Math.cos(parseFloat(arrayOfInputs[h+1]))
+                arrayOfInputs[h+1] = x;
+            }
+            if (arrayOfInputs[h] == "tan") {
+                x = Math.tan(parseFloat(arrayOfInputs[h+1]))
+                arrayOfInputs[h+1] = x;
+            }
+            h = h + 1;
+        }
+        count = [];
+        count.push(x);
+        $("#result").val(x);
+
+        x = 0;
+    }
+</script>
+<script>
+    var count = []
+    var n = -1;
+    var n2 = -1;
+    let num = "";
+    $("button").click(function () {
+        if(this.id == "equal") {
+            console.log("Calling Calculate");
+            count.push(num);
+            Calculate(count, n, n2);
+            num = "";
+        }
+        if(this.id == "C") {
+            appendToScreen($(this).text());
+            count = [];
+            num = "";
+            n = -1;
+            n2 = -1;
+        }
+        if(this.id != "equal" && this.id != "C" && this.id != "plus" && this.id != "minus" && this.id != "pct" && this.id != "higher" && this.id != "lower" && 
+        this.id != "sqrt" && this.id != "division" && this.id != "3sqrt" && this.id != "x2" && this.id != "x3" && this.id != "multiply" && this.id != "sin" && 
+        this.id != "cos" && this.id != "tan") {
+            appendToScreen($(this).text());
+            num = num+$(this).text();
+            n += 1;
+            n2 += 1;
+        }
+        if(this.id == "plus" || this.id == "minus" || this.id == "pct" || this.id == "higher" || this.id == "lower" || this.id == "sqrt" || this.id == "division" || 
+        this.id == "multiply" || this.id == "3sqrt" || this.id == "x2" || this.id == "x3" || this.id == "sin" || this.id == "cos" || this.id == "tan") {
+            if(this.id == "x2") {
+                appendToScreen("²");
+            }
+            else if(this.id == "x3") {
+                appendToScreen("³");
+            }
+            else {
+                appendToScreen($(this).text());
+            }
+            if(num != "") {
+                count.push(num);
+                num = "";
+                count.push($(this).text());
+                n += 1;
+                n2 += 1;
+            }
+            else {
+                count.push($(this).text());
+                n += 1;
+                n2 += 1;
+            }
+        }
+    })
+</script>
+</body>
+</html>
